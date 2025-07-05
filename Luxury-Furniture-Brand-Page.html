@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Interiors | Luxury Furniture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#014421',secondary:'#D6B77C'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #3B2F2F;
+            background-color: #F0F0EC;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .accent-text {
+            font-family: 'Cormorant', serif;
+            font-style: italic;
+        }
+        
+        .hero-section {
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%);
+        }
+        
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 2px;
+            background-color: #D6B77C;
+            margin-top: 20px;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-image {
+            transition: transform 0.6s ease;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #D6B77C;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: #014421;
+            color: #F0F0EC;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #01331A;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(1, 68, 33, 0.2);
+        }
+        
+        .btn-secondary {
+            border: 1px solid #D6B77C;
+            color: #3B2F2F;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .btn-secondary::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: #D6B77C;
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-secondary:hover {
+            color: #F0F0EC;
+        }
+        
+        .btn-secondary:hover::after {
+            width: 100%;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #014421;
+            color: #F0F0EC;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        input, select, textarea {
+            border: 1px solid #8DAA91;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #014421;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(1, 68, 33, 0.1);
+        }
+        
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #F0F0EC;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #D6B77C;
+        }
+        
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 25px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background-color: #D6B77C;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .craftsmanship-card {
+            transition: all 0.3s ease;
+        }
+        
+        .craftsmanship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 47, 47, 0.1);
+        }
+        
+        .custom-checkbox {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            border: 1px solid #8DAA91;
+            border-radius: 4px;
+            background-color: #F0F0EC;
+        }
+        
+        .custom-checkbox:hover input ~ .checkmark {
+            border-color: #014421;
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #014421;
+            border-color: #014421;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .custom-checkbox .checkmark:after {
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #014421;
+        }
+        
+        input:focus + .slider {
+            box-shadow: 0 0 1px #014421;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="header">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <h1 class="text-3xl font-['Pacifico'] text-primary">logo</h1>
+            </div>
+            
+            <nav class="hidden lg:flex items-center space-x-8">
+                <a href="#home" class="nav-link text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300">Home</a>
+                <a href="#about" class="nav-link text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300">About</a>
+                <a href="#collections" class="nav-link text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300">Collections</a>
+                <a href="#craftsmanship" class="nav-link text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300">Craftsmanship</a>
+                <a href="#projects" class="nav-link text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300">Projects</a>
+                <a href="#contact" class="nav-link text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300">Contact</a>
+            </nav>
+            
+            <div class="flex items-center space-x-6">
+                <div class="hidden lg:flex items-center space-x-4">
+                    <div class="relative group">
+                        <button class="flex items-center text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300">
+                            <span>EN</span>
+                            <div class="w-4 h-4 flex items-center justify-center ml-1">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
+                        </button>
+                        <div class="absolute top-full right-0 mt-2 bg-white shadow-md rounded-md py-2 w-24 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300">
+                            <a href="#" class="block px-4 py-2 text-sm text-[#3B2F2F] hover:bg-[#F0F0EC] hover:text-[#D6B77C]">English</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-[#3B2F2F] hover:bg-[#F0F0EC] hover:text-[#D6B77C]">French</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-[#3B2F2F] hover:bg-[#F0F0EC] hover:text-[#D6B77C]">German</a>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 flex items-center justify-center cursor-pointer">
+                        <i class="ri-search-line text-[#3B2F2F] hover:text-[#D6B77C] transition-colors duration-300"></i>
+                    </div>
+                </div>
+                
+                <button class="lg:hidden w-8 h-8 flex items-center justify-center" id="mobile-menu-button">
+                    <i class="ri-menu-line text-2xl text-[#3B2F2F]"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu lg:hidden" id="mobile-menu">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-10">
+                <h1 class="text-3xl font-['Pacifico'] text-primary">logo</h1>
+                <button class="w-8 h-8 flex items-center justify-center" id="close-menu-button">
+                    <i class="ri-close-line text-2xl text-[#3B2F2F]"></i>
+                </button>
+            </div>
+            
+            <nav class="flex flex-col space-y-6">
+                <a href="#home" class="text-xl text-primary hover:text-[#D6B77C] transition-colors duration-300">Home</a>
+                <a href="#about" class="text-xl text-primary hover:text-[#D6B77C] transition-colors duration-300">About</a>
+                <a href="#collections" class="text-xl text-primary hover:text-[#D6B77C] transition-colors duration-300">Collections</a>
+                <a href="#craftsmanship" class="text-xl text-primary hover:text-[#D6B77C] transition-colors duration-300">Craftsmanship</a>
+                <a href="#projects" class="text-xl text-primary hover:text-[#D6B77C] transition-colors duration-300">Projects</a>
+                <a href="#contact" class="text-xl text-primary hover:text-[#D6B77C] transition-colors duration-300">Contact</a>
+            </nav>
+            
+            <div class="mt-10 flex items-center space-x-6">
+                <div class="relative">
+                    <button class="flex items-center text-[#3B2F2F]">
+                        <span>EN</span>
+                        <div class="w-4 h-4 flex items-center justify-center ml-1">
+                            <i class="ri-arrow-down-s-line"></i>
+                        </div>
+                    </button>
+                </div>
+                <div class="w-6 h-6 flex items-center justify-center">
+                    <i class="ri-search-line text-[#3B2F2F]"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section relative" style="background-image: url('https://readdy.ai/api/search-image?query=luxury%2520modern%2520living%2520room%2520with%2520elegant%2520furniture%2C%2520neutral%2520colors%2C%2520large%2520windows%2520with%2520natural%2520light%2C%2520high%2520ceilings%2C%2520wooden%2520floors%2C%2520minimalist%2520design%2C%2520sophisticated%2520atmosphere%2C%2520clean%2520lines%2C%2520premium%2520materials%2C%2520architectural%2520details&width=1920&height=1080&seq=1&orientation=landscape')">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="container mx-auto px-6 h-full flex items-center">
+            <div class="w-full max-w-2xl text-white relative z-10 fade-in">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold mb-4">Timeless Elegance, Crafted Perfection</h1>
+                <p class="accent-text text-[#D6B77C] text-xl md:text-2xl mb-8">Redefining luxury furniture since 1985</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#collections" class="btn-primary px-8 py-3 rounded-button text-center whitespace-nowrap">Explore Collections</a>
+                    <a href="#about" class="btn-secondary px-8 py-3 rounded-button text-center whitespace-nowrap">Our Story</a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
+            <span class="text-white text-sm mb-2">Discover</span>
+            <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white rounded-full mt-2 animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1 fade-in">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl text-[#3B2F2F] font-semibold mb-6 section-title">Our Story</h2>
+                    <p class="mb-6">Founded in 1985 by master craftsman Alessandro Moretti, our atelier began as a small workshop in Florence, Italy. For over three decades, we have remained dedicated to the pursuit of perfection in furniture design and craftsmanship.</p>
+                    <p class="mb-8">Today, our collections can be found in luxury residences, boutique hotels, and prestigious establishments around the world, each piece bearing the hallmark of our uncompromising commitment to quality.</p>
+                    <blockquote class="border-l-4 border-[#D6B77C] pl-6 py-2 mb-8">
+                        <p class="accent-text text-xl text-[#3B2F2F]">"We don't simply create furniture; we craft heirlooms that tell stories across generations."</p>
+                        <footer class="mt-2 text-sm">— Alessandro Moretti, Founder</footer>
+                    </blockquote>
+                    <a href="#craftsmanship" class="btn-primary px-8 py-3 rounded-button inline-block whitespace-nowrap">Our Craftsmanship</a>
+                </div>
+                <div class="order-1 lg:order-2 fade-in">
+                    <img src="https://readdy.ai/api/search-image?query=luxury%2520furniture%2520workshop%2520with%2520craftsman%2520working%2520on%2520wooden%2520furniture%2C%2520elegant%2520atelier%2C%2520traditional%2520tools%2C%2520warm%2520lighting%2C%2520premium%2520materials%2C%2520attention%2520to%2520detail%2C%2520artisanal%2520craftsmanship%2C%2520sophisticated%2520environment%2C%2520wood%2520shavings%2C%2520quality%2520workmanship&width=800&height=600&seq=2&orientation=landscape" alt="Our workshop" class="w-full h-auto rounded-lg shadow-lg">
+                </div>
+            </div>
+            
+            <div class="mt-24 fade-in">
+                <h3 class="text-2xl md:text-3xl text-primary font-semibold mb-12 text-center">Our Journey</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="timeline-item pb-12">
+                        <h4 class="text-xl text-[#3B2F2F] font-semibold mb-2">1985</h4>
+                        <p>Founded in Florence, Italy as a small artisanal workshop specializing in handcrafted wooden furniture.</p>
+                    </div>
+                    <div class="timeline-item pb-12">
+                        <h4 class="text-xl text-[#3B2F2F] font-semibold mb-2">1997</h4>
+                        <p>Expanded operations and opened our first international showroom in Paris, marking our entry into the global luxury market.</p>
+                    </div>
+                    <div class="timeline-item pb-12">
+                        <h4 class="text-xl text-[#3B2F2F] font-semibold mb-2">2008</h4>
+                        <p>Introduced our signature "Eternità" collection, which received international acclaim and established our distinctive design language.</p>
+                    </div>
+                    <div class="timeline-item pb-12">
+                        <h4 class="text-xl text-[#3B2F2F] font-semibold mb-2">2022</h4>
+                        <p>Launched our sustainable luxury initiative, committing to environmentally responsible practices while maintaining our standards of excellence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections" class="py-20 md:py-32 bg-[#F7F7F5]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl text-[#3B2F2F] font-semibold mb-4">Our Collections</h2>
+                <p class="max-w-3xl mx-auto text-lg">Discover our meticulously curated collections, each embodying a distinct aesthetic while maintaining our signature commitment to quality and craftsmanship.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md fade-in product-card">
+                    <div class="h-80 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=luxury%2520modern%2520sofa%2520in%2520neutral%2520beige%2520color%2C%2520elegant%2520design%2C%2520premium%2520fabric%2C%2520clean%2520lines%2C%2520minimalist%2520style%2C%2520sophisticated%2520living%2520room%2520setting%2C%2520soft%2520lighting%2C%2520wooden%2520legs%2C%2520high-end%2520furniture%2C%2520comfortable%2520seating&width=600&height=400&seq=3&orientation=landscape" alt="Milano Collection" class="w-full h-full object-cover product-image">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-[#8DAA91] mb-1 block">Living Room</span>
+                        <h3 class="text-2xl text-primary font-semibold mb-3">Milano Collection</h3>
+                        <p class="mb-4">Contemporary elegance inspired by Milan's fashion heritage, featuring clean lines and sumptuous materials.</p>
+                        <a href="#" class="btn-secondary px-6 py-2 rounded-button inline-block whitespace-nowrap">View Collection</a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md fade-in product-card">
+                    <div class="h-80 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=luxury%2520dining%2520table%2520set%2520with%2520wooden%2520table%2520and%2520elegant%2520chairs%2C%2520sophisticated%2520design%2C%2520premium%2520materials%2C%2520neutral%2520colors%2C%2520minimalist%2520style%2C%2520high-end%2520dining%2520room%2520setting%2C%2520soft%2520lighting%2C%2520quality%2520craftsmanship%2C%2520luxurious%2520atmosphere&width=600&height=400&seq=4&orientation=landscape" alt="Toscana Collection" class="w-full h-full object-cover product-image">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-[#8DAA91] mb-1 block">Dining Room</span>
+                        <h3 class="text-2xl text-primary font-semibold mb-3">Toscana Collection</h3>
+                        <p class="mb-4">Timeless pieces that celebrate the rich heritage of Tuscan craftsmanship with warm woods and elegant details.</p>
+                        <a href="#" class="btn-secondary px-6 py-2 rounded-button inline-block whitespace-nowrap">View Collection</a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md fade-in product-card">
+                    <div class="h-80 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=luxury%2520bedroom%2520furniture%2520with%2520elegant%2520bed%2520frame%2C%2520nightstands%2C%2520premium%2520materials%2C%2520neutral%2520colors%2C%2520sophisticated%2520design%2C%2520high-end%2520bedroom%2520setting%2C%2520soft%2520lighting%2C%2520quality%2520craftsmanship%2C%2520minimalist%2520style%2C%2520luxurious%2520atmosphere&width=600&height=400&seq=5&orientation=landscape" alt="Serena Collection" class="w-full h-full object-cover product-image">
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-[#8DAA91] mb-1 block">Bedroom</span>
+                        <h3 class="text-2xl text-primary font-semibold mb-3">Serena Collection</h3>
+                        <p class="mb-4">Serene and sophisticated bedroom furnishings designed to create a tranquil sanctuary of unparalleled comfort.</p>
+                        <a href="#" class="btn-secondary px-6 py-2 rounded-button inline-block whitespace-nowrap">View Collection</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center fade-in">
+                <a href="#" class="btn-primary px-8 py-3 rounded-button inline-block whitespace-nowrap">View All Collections</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Craftsmanship Section -->
+    <section id="craftsmanship" class="py-20 md:py-32">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl text-[#3B2F2F] font-semibold mb-4">Our Craftsmanship</h2>
+                <p class="max-w-3xl mx-auto text-lg">Every piece we create is a testament to our unwavering commitment to excellence, combining traditional techniques with innovative approaches.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white rounded-lg p-8 shadow-md fade-in craftsmanship-card">
+                    <div class="w-16 h-16 flex items-center justify-center bg-[#F0F0EC] rounded-full mb-6 mx-auto">
+                        <i class="ri-hand-heart-line text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl text-primary font-semibold mb-4 text-center">Artisanal Excellence</h3>
+                    <p class="text-center">Our master craftsmen bring decades of experience to each piece, ensuring impeccable attention to detail and flawless execution.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md fade-in craftsmanship-card">
+                    <div class="w-16 h-16 flex items-center justify-center bg-[#F0F0EC] rounded-full mb-6 mx-auto">
+                        <i class="ri-leaf-line text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl text-primary font-semibold mb-4 text-center">Sustainable Luxury</h3>
+                    <p class="text-center">We source materials responsibly, prioritizing sustainable forestry practices and eco-friendly production methods without compromising quality.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md fade-in craftsmanship-card">
+                    <div class="w-16 h-16 flex items-center justify-center bg-[#F0F0EC] rounded-full mb-6 mx-auto">
+                        <i class="ri-palette-line text-2xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl text-primary font-semibold mb-4 text-center">Bespoke Design</h3>
+                    <p class="text-center">Beyond our collections, we offer custom design services to create unique pieces tailored to your specific vision and requirements.</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <img src="https://readdy.ai/api/search-image?query=close-up%2520of%2520artisan%2520hands%2520working%2520on%2520luxury%2520wooden%2520furniture%2520detail%2C%2520craftsmanship%2C%2520traditional%2520tools%2C%2520workshop%2520environment%2C%2520premium%2520materials%2C%2520attention%2520to%2520detail%2C%2520wood%2520carving%2C%2520fine%2520joinery%2C%2520quality%2520workmanship%2C%2520warm%2520lighting&width=800&height=600&seq=6&orientation=landscape" alt="Craftsmanship detail" class="w-full h-auto rounded-lg shadow-lg">
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-2xl md:text-3xl text-primary font-semibold mb-6">The Art of Creation</h3>
+                    <p class="mb-4">Each piece begins with carefully selected materials—the finest woods, leathers, fabrics, and metals—chosen not only for their beauty but for their durability and character.</p>
+                    <p class="mb-4">Our craftsmen employ both time-honored techniques passed down through generations and innovative methods that push the boundaries of what's possible in furniture design.</p>
+                    <p class="mb-6">From the initial sketch to the final polish, every step in our creation process is executed with precision and care, resulting in pieces that are not just furniture, but works of art designed to be cherished for generations.</p>
+                    <a href="#" class="btn-secondary px-6 py-2 rounded-button inline-block whitespace-nowrap">Our Process</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 md:py-32 bg-[#F7F7F5]">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl text-[#3B2F2F] font-semibold mb-4">Featured Projects</h2>
+                <p class="max-w-3xl mx-auto text-lg">Explore how our furniture has transformed exceptional spaces around the world, from private residences to prestigious hospitality venues.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md fade-in">
+                    <div class="h-96 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=luxury%2520hotel%2520lobby%2520with%2520elegant%2520furniture%2C%2520sophisticated%2520design%2C%2520premium%2520materials%2C%2520neutral%2520colors%2C%2520high%2520ceilings%2C%2520marble%2520floors%2C%2520chandeliers%2C%2520reception%2520desk%2C%2520seating%2520area%2C%2520grand%2520entrance&width=800&height=600&seq=7&orientation=landscape" alt="The Grand Milano Hotel" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-sm text-[#8DAA91] mb-1 block">Hospitality</span>
+                        <h3 class="text-2xl text-primary font-semibold mb-3">The Grand Milano Hotel</h3>
+                        <p class="mb-4">A complete furnishing project for this iconic 5-star hotel in Milan, featuring custom pieces that blend contemporary luxury with the building's historic character.</p>
+                        <a href="#" class="text-[#D6B77C] hover:text-primary transition-colors duration-300 flex items-center">
+                            <span>View Project</span>
+                            <div class="w-4 h-4 flex items-center justify-center ml-1">
+                                <i class="ri-arrow-right-line"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg overflow-hidden shadow-md fade-in">
+                    <div class="h-96 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=luxury%2520penthouse%2520living%2520room%2520with%2520elegant%2520furniture%2C%2520floor%2520to%2520ceiling%2520windows%2C%2520city%2520view%2C%2520sophisticated%2520design%2C%2520premium%2520materials%2C%2520neutral%2520colors%2C%2520high%2520ceilings%2C%2520wooden%2520floors%2C%2520modern%2520lighting%2C%2520minimalist%2520style&width=800&height=600&seq=8&orientation=landscape" alt="Manhattan Penthouse" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-sm text-[#8DAA91] mb-1 block">Residential</span>
+                        <h3 class="text-2xl text-primary font-semibold mb-3">Manhattan Penthouse</h3>
+                        <p class="mb-4">A bespoke interior for a Central Park-facing penthouse, where our furniture creates a perfect balance between urban sophistication and timeless comfort.</p>
+                        <a href="#" class="text-[#D6B77C] hover:text-primary transition-colors duration-300 flex items-center">
+                            <span>View Project</span>
+                            <div class="w-4 h-4 flex items-center justify-center ml-1">
+                                <i class="ri-arrow-right-line"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center fade-in">
+                <a href="#" class="btn-primary px-8 py-3 rounded-button inline-block whitespace-nowrap">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 md:py-32">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl text-[#3B2F2F] font-semibold mb-4">Client Testimonials</h2>
+                <p class="max-w-3xl mx-auto text-lg">Hear from those who have experienced the exceptional quality and service that defines our brand.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg p-8 shadow-md fade-in">
+                    <div class="flex mb-6">
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                    </div>
+                    <blockquote class="mb-6">
+                        <p class="italic">"The attention to detail in every piece is extraordinary. Our home has been transformed into a sanctuary of elegance and comfort that perfectly reflects our personal style."</p>
+                    </blockquote>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#8DAA91] rounded-full flex items-center justify-center text-white font-semibold mr-4">JD</div>
+                        <div>
+                            <h4 class="font-semibold">Jonathan Darcy</h4>
+                            <p class="text-sm text-[#8DAA91]">New York</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md fade-in">
+                    <div class="flex mb-6">
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                    </div>
+                    <blockquote class="mb-6">
+                        <p class="italic">"Working with their design team on our bespoke pieces was a seamless experience. The craftsmanship exceeds all expectations, and the furniture has become the focal point of our home."</p>
+                    </blockquote>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#8DAA91] rounded-full flex items-center justify-center text-white font-semibold mr-4">EL</div>
+                        <div>
+                            <h4 class="font-semibold">Elena Laurent</h4>
+                            <p class="text-sm text-[#8DAA91]">Paris</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md fade-in">
+                    <div class="flex mb-6">
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                        <i class="ri-star-fill text-[#D6B77C]"></i>
+                    </div>
+                    <blockquote class="mb-6">
+                        <p class="italic">"As an interior designer, I've worked with many luxury furniture brands, but none match the quality, service, and attention to detail. My clients are consistently impressed."</p>
+                    </blockquote>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-[#8DAA91] rounded-full flex items-center justify-center text-white font-semibold mr-4">MR</div>
+                        <div>
+                            <h4 class="font-semibold">Marcus Reynolds</h4>
+                            <p class="text-sm text-[#8DAA91]">London</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-32 bg-[#F7F7F5]">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="fade-in">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl text-[#3B2F2F] font-semibold mb-6 section-title">Contact Us</h2>
+                    <p class="mb-8">Whether you're interested in our collections, require a bespoke design, or simply wish to learn more about our craftsmanship, we're here to assist you.</p>
+                    
+                    <div class="mb-8">
+                        <h3 class="text-xl text-primary font-semibold mb-4">Visit Our Showrooms</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold mb-2">Florence</h4>
+                                <p class="text-sm mb-1">Via dei Serragli 104</p>
+                                <p class="text-sm mb-1">50124 Florence, Italy</p>
+                                <p class="text-sm">+39 055 123 4567</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2">New York</h4>
+                                <p class="text-sm mb-1">22 West 21st Street</p>
+                                <p class="text-sm mb-1">New York, NY 10010, USA</p>
+                                <p class="text-sm">+1 212 555 6789</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl text-primary font-semibold mb-4">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-[#8DAA91] text-[#3B2F2F] hover:bg-primary hover:border-primary hover:text-white transition-all duration-300">
+                                <i class="ri-instagram-line"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-[#8DAA91] text-[#3B2F2F] hover:bg-primary hover:border-primary hover:text-white transition-all duration-300">
+                                <i class="ri-pinterest-line"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-[#8DAA91] text-[#3B2F2F] hover:bg-primary hover:border-primary hover:text-white transition-all duration-300">
+                                <i class="ri-linkedin-line"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full border border-[#8DAA91] text-[#3B2F2F] hover:bg-primary hover:border-primary hover:text-white transition-all duration-300">
+                                <i class="ri-facebook-line"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-8 shadow-md fade-in">
+                    <h3 class="text-2xl text-primary font-semibold mb-6">Send Us a Message</h3>
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 rounded border-[#8DAA91] focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Your name">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 rounded border-[#8DAA91] focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Your email">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="subject" class="block text-sm font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-2 rounded border-[#8DAA91] focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Subject">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 rounded border-[#8DAA91] focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Your message"></textarea>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="custom-checkbox">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span class="ml-2">I agree to the privacy policy and terms of service</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary px-8 py-3 rounded-button w-full whitespace-nowrap">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-primary">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center text-white fade-in">
+                <h2 class="text-3xl md:text-4xl font-semibold mb-4">Join Our Newsletter</h2>
+                <p class="mb-8">Subscribe to receive updates on new collections, exclusive events, and design inspiration.</p>
+                <form class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" class="flex-grow px-4 py-3 rounded-button border-none text-[#3B2F2F]" placeholder="Your email address">
+                    <button type="submit" class="bg-[#D6B77C] text-[#3B2F2F] px-8 py-3 rounded-button hover:bg-[#c4a76c] transition-colors duration-300 whitespace-nowrap">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#3B2F2F] text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <h1 class="text-3xl font-['Pacifico'] text-white mb-6">logo</h1>
+                    <p class="mb-6">Crafting timeless luxury furniture since 1985. Our pieces combine traditional craftsmanship with contemporary design for discerning clients worldwide.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+                            <i class="ri-instagram-line text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+                            <i class="ri-pinterest-line text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+                            <i class="ri-linkedin-line text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-300">
+                            <i class="ri-facebook-line text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Collections</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-[#D6B77C] transition-colors duration-300">Milano Collection</a></li>
+                        <li><a href="#" class="hover:text-[#D6B77C] transition-colors duration-300">Toscana Collection</a></li>
+                        <li><a href="#" class="hover:text-[#D6B77C] transition-colors duration-300">Serena Collection</a></li>
+                        <li><a href="#" class="hover:text-[#D6B77C] transition-colors duration-300">Modernist Collection</a></li>
+                        <li><a href="#" class="hover:text-[#D6B77C] transition-colors duration-300">Bespoke Services</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="hover:text-[#D6B77C] transition-colors duration-300">About Us</a></li>
+                        <li><a href="#craftsmanship" class="hover:text-[#D6B77C] transition-colors duration-300">Craftsmanship</a></li>
+                        <li><a href="#projects" class="hover:text-[#D6B77C] transition-colors duration-300">Projects</a></li>
+                        <li><a href="#" class="hover:text-[#D6B77C] transition-colors duration-300">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-[#D6B77C] transition-colors duration-300">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Contact</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span>Via dei Serragli 104, 50124 Florence, Italy</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span>+39 055 123 4567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mt-1 mr-3">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span>info@luxeinteriors.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-white/70 mb-4 md:mb-0">© 2025 Luxe Interiors. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-sm text-white/70 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-sm text-white/70 hover:text-white transition-colors duration-300">Terms of Service</a>
+                    <a href="#" class="text-sm text-white/70 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scroll-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script id="header-scroll">
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('header');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-white', 'shadow-md');
+                    header.classList.remove('bg-transparent');
+                } else {
+                    header.classList.remove('bg-white', 'shadow-md');
+                    header.classList.add('bg-transparent');
+                }
+            });
+            
+            // Initial check
+            if (window.scrollY > 50) {
+                header.classList.add('bg-white', 'shadow-md');
+                header.classList.remove('bg-transparent');
+            }
+        });
+    </script>
+
+    <script id="mobile-menu">
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        });
+    </script>
+
+    <script id="scroll-animations">
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            
+            function checkFade() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight * 0.9 && elementBottom > 0) {
+                        element.classList.add('active');
+                    }
+                });
+                
+                if (window.scrollY > 500) {
+                    scrollToTopButton.classList.add('active');
+                } else {
+                    scrollToTopButton.classList.remove('active');
+                }
+            }
+            
+            window.addEventListener('scroll', checkFade);
+            window.addEventListener('resize', checkFade);
+            
+            // Initial check
+            checkFade();
+            
+            scrollToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <script id="smooth-scroll">
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = document.getElementById('header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
